@@ -3,11 +3,11 @@ import psycopg2
 # Conexión a la base de datos
 try:
     connection = psycopg2.connect(
-        dbname="lumger_db",   
-        user="postgres",      
-        password="Djyira0.36", 
-        host="localhost",     
-        port="5432"           
+        dbname="lumger_db",
+        user="postgres",
+        password="Djyira0.36",
+        host="localhost",
+        port="5432",
     )
     cursor = connection.cursor()
 
@@ -29,7 +29,7 @@ except Exception as error:
     print("Error al insertar en la base de datos:", error)
 
 finally:
-    if 'connection' in locals() and connection:
+    if "connection" in locals() and connection:
         cursor.close()
         connection.close()
         print("Conexión cerrada.")
