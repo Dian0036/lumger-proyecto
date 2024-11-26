@@ -35,7 +35,7 @@ def add_idea():
 # Ruta base para verificar que el servidor funciona
 @app.route("/")
 def home():
-    return "Hola, Lumger está funcionando correctamente!"
+    return "Hola, Lumger ha sido actualizado automáticamente con CI/CD!"
 
 
 if __name__ == "__main__":

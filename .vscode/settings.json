@@ -1,0 +1,11 @@
+{
+    "files.exclude": {
+      "**/__pycache__": true,
+      "**/.git": true,
+      "**/.DS_Store": true,
+      "**/*.pyc": true,
+      "**/venv": true
+    },
+    "git.decorations.enabled": false,
+    "editor.formatOnSave": true
+  }

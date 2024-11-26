@@ -21,40 +21,35 @@ import psycopg2
 from psycopg2.extras import RealDictCursor
 import os
 
-DATABASE_URL = os.getenv("DATABASE_URL")
-
+DATABASE_URL = os.getenv("DATABASE_URL")  # Asegúrate de que esté configurado correctamente.
 
 def init_db():
     conn = psycopg2.connect(DATABASE_URL)
-    cursor = conn.cursor()
-    cursor.execute(
-        """
+    cur = conn.cursor()
+    cur.execute("""
         CREATE TABLE IF NOT EXISTS ideas (
             id SERIAL PRIMARY KEY,
-            title TEXT,
-            description TEXT,
-            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-        )
-    """
-    )
+            title TEXT NOT NULL,
+            description TEXT
+        );
+    """)
     conn.commit()
+    cur.close()
     conn.close()
-
-
-def insert_idea(title, description):
-    conn = psycopg2.connect(DATABASE_URL)
-    cursor = conn.cursor()
-    cursor.execute(
-        "INSERT INTO ideas (title, description) VALUES (%s, %s)", (title, description)
-    )
-    conn.commit()
-    conn.close()
-
 
 def get_ideas():
     conn = psycopg2.connect(DATABASE_URL, cursor_factory=RealDictCursor)
-    cursor = conn.cursor()
-    cursor.execute("SELECT * FROM ideas")
-    ideas = cursor.fetchall()
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM ideas;")
+    ideas = cur.fetchall()
+    cur.close()
     conn.close()
     return ideas
+
+def insert_idea(title, description):
+    conn = psycopg2.connect(DATABASE_URL)
+    cur = conn.cursor()
+    cur.execute("INSERT INTO ideas (title, description) VALUES (%s, %s);", (title, description))
+    conn.commit()
+    cur.close()
+    conn.close()
